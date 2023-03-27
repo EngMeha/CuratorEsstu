@@ -1,0 +1,134 @@
+*{
+    box-sizing: border-box;
+}
+
+.container-scrol{
+    height: 80vh;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #efeff5;
+    height: 100vh;
+    overflow: auto;
+}
+
+.header{
+    font-size: 20px;
+    height: 80px;
+    background-color: #00004d;
+}
+
+
+
+
+.col-header{
+    text-align: end;
+    vertical-align: middle;
+    line-height: 50px; 
+    color: white;
+}
+
+/* .menu{
+    position: fixed;
+    z-index: 9999;
+} */
+
+.pl-3 {
+    padding-left: 25px !important;
+}
+.py-2 {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+.ml-2 {
+    margin-left: 20px !important;
+}
+.active-navbar{
+    background-color: #2929ff;
+}
+
+
+/* menu */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+
+.sidebar {
+    position: fixed;
+    z-index: 9999;
+}
+
+.top-margin{
+    margin-top: 80px;
+}
+
+.first-menu {
+    position: fixed;
+    background-color: #00004d;
+    height: 100vh;
+    width: 90px;
+    overflow: hidden;
+    transition: width 0.5s;
+    border-radius: 0;
+}
+.first-menu a {
+    color: #fff;
+}
+.first-menu i {
+    position: absolute;
+    top: 50%;
+    font-size: 40px;
+    transform: translate(0,-50%);
+}
+.first-menu span {
+    font-size: 14px;
+    white-space: nowrap;
+    font-family: 'Open Sans', sans-serif;
+    opacity: 0;
+    visibility: hidden;
+}
+.first-menu:hover span {
+    opacity: 1;
+    visibility: visible;
+}
+.first-menu .list-group-item:hover {
+    background-color: #009fff;
+}
+
+.first-menu .list-group-item:hover span {
+    font-size: 18px;
+}
+.first-menu:hover {
+    width: 200px;
+}
+.list-group-item {
+    height: 12%;
+    transition: all .5s;
+}
+
+.list-group-item {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.custom-text{
+    font-weight: normal;
+}
+.custom-icon{
+    padding-left: 17px;
+}
+.custom-icon-2{
+    padding-left: 22px;
+}
+
+.account{
+    height: 50px;
+    cursor: pointer;
+}
+
+.col-account{
+    text-align: start;
+}

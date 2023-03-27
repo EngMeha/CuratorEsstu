@@ -1,0 +1,202 @@
+
+.item-event{
+    padding: 10px;
+}
+
+.content-main{
+    display: grid;
+}
+
+.content-item, .img-event{
+    grid-area: 1/1;
+}
+
+.content-item{
+    display: grid;
+    height: 100%;
+}
+
+.img-event{
+    height: 100%;
+    width: 100%;
+}
+
+
+.date-event{
+    color: #fff;
+    font-size: 24px;
+}
+
+.address{
+    color: #fff;
+    font-size: 20px;
+    white-space: normal;
+}
+
+.background-item, .test{
+    grid-area: 1/1;
+}
+
+.background-item{
+    background-color: black;
+    opacity: 0.5;
+}
+.test:hover{
+    padding-top: 50%;
+}
+
+.test{
+    transition: all 1s;
+    padding: 10px;
+    z-index: 7;
+    width: 100%;
+    height: 100%;
+}
+
+/* modal */
+.modal,
+.modal-box {
+  z-index: 90000;
+}
+
+.modal-sandbox {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: transparent;
+}
+
+.modal {
+  display: none; 
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgb(0,0,0);
+  background: rgba(0,0,0,.8);
+  overflow: auto;
+}
+
+.modal-box {
+  position: relative;
+  width: 50%;
+  max-width: 920px;
+  margin: 70px auto;
+  animation-name: modalbox;
+  animation-duration: .4s;
+  animation-timing-function: cubic-bezier(0,0,.3,1.6);
+}
+
+.modal-header {
+    padding: 20px 20px;
+    background: #00004d;
+    color: #ffffff;
+    width: 100%;
+}
+
+.modal-body {
+  background: #efeff5;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-link{
+    font-size: 20px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+hr{
+    width: 82%;
+    margin: 20px auto;
+
+}
+
+.link{
+    width: 80%;
+    word-wrap: break-word; 
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.description-event-modal{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.description{
+    overflow: auto;
+}
+
+.description p{
+    height: 18vh;
+}
+
+.modal-footer{
+    background: #00004d;
+}
+
+@media (max-width: 1100px) {
+    .modal-box{
+        width: 80%;
+    }
+}
+
+/* Close Button */
+.close-modal {
+  text-align: right;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all .5s;
+}
+
+.title-header{
+    font-size: 35px;
+}
+
+.close-modal-btn{
+    background-color: #fff;
+    font-size: 20px;
+    border: 3px solid #0b0bdd;
+    border-radius: 10px;
+    color: #000;
+    transition: all .5s;
+}
+
+.close-modal-btn:hover{
+    font-size: 25px;
+}
+
+.close-modal:hover{
+    font-size: 30px;
+}
+
+/* Animation */
+@-webkit-keyframes modalbox {
+  0% {
+    top: -250px; 
+    opacity: 0;
+  }
+  100% {
+    top: 0; 
+    opacity: 1;
+  }
+}
+
+@keyframes modalbox {
+  0% {
+    top: -250px; 
+    opacity: 0;
+  }
+  100% {
+    top: 0; 
+    opacity: 1;
+  }
+}
