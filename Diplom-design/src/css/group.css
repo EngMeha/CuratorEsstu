@@ -1,0 +1,93 @@
+.item-group-start{
+    margin-left: 0;
+    transition: all .5s;
+    border: none;
+}
+
+.item-group-start:hover{
+    background-color: #a8bbfd;
+}
+
+.item-group-start:hover .item-title{
+    color: black;
+    
+}
+
+.form__group__style{
+    width: 100px;
+}
+
+.block-start{
+    width: 100px;
+    border: none;
+}
+
+/* default styling. Nothing to do with freexing first row and column */
+table {
+    border-collapse: collapse; 
+    font-family: 'Roboto', sans-serif;
+}
+td, th {border:  1px solid;
+    padding: 10px;
+    min-width: 100px;
+    background: white;
+    box-sizing: border-box;
+    text-align: center;
+}
+.table-container {
+  position: relative;
+  max-height: 65vh;
+  overflow: scroll;
+}
+
+thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #00004d;
+  border: 1px solid black;
+  color: white;
+  font-size: 16px;
+  font: 100;
+}
+
+thead th:first-child {
+  left: 0;
+  z-index: 3;
+  background-color: #00004d;
+  color: white;
+    
+}
+
+
+tbody {
+  overflow: scroll;
+  height: 100px;
+}
+
+/* MAKE LEFT COLUMN FIXEZ */
+tr > :first-child {
+  position: -webkit-sticky;
+  position: sticky; 
+  color: black;
+  text-align: left; 
+  
+}
+/* don't do this
+tr > :first-child {
+  box-shadow: inset 0px 1px black;
+} */
+
+.value-cat{
+    margin-left: 5px;
+}
+
+.description-group{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.title-cat{
+    font-weight: 500;
+}
