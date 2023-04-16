@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace DataLayer
 {
@@ -11,6 +9,7 @@ namespace DataLayer
     {
         public async static Task InitDB(DiplomContext _context) 
         {
+            
             //инициализация
             if (!await _context.BasisOfLearning.AnyAsync())
             {
@@ -24,6 +23,39 @@ namespace DataLayer
                 _context.FormOfStudy.AddRange(new Entity.FormOfStudy() { Title = "Заочная" });
             }
             await _context.SaveChangesAsync();
+        }
+
+        public async static Task InitRole(UserManager<Entity.User> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            // возможно потом сделаю красивее
+            string adminLogin = "admin";
+            string adminPassword = "Admin.123";
+
+            if (await roleManager.FindByNameAsync("Администратор") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("Администратор"));
+            }
+            if (await roleManager.FindByNameAsync("Куратор") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("Куратор"));
+            }
+            if (await userManager.FindByNameAsync(adminLogin) == null)
+            {
+                Entity.User admin = new Entity.User
+                {
+                    UserName = adminLogin,
+                    FirstName = "Admin",
+                    SecondName = "Admin",
+                    LastName = "Admin",
+                };
+                IdentityResult result = await userManager.CreateAsync(admin, adminPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, "Администратор");
+                }
+               
+            }
+            
         }
     }
 }

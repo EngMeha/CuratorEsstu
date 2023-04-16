@@ -1,0 +1,45 @@
+﻿@using PresentationLayer.Models;
+@model ViewAllEmployeeModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
+}
+<div class="center-show">
+    <div class="container-show">
+        <div >
+            <table class="col- table table-custom text-center">
+                <thead class="table-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Отчество</th>
+                    <th scope="col">Должность</th>
+                    <th scope="col">Телефон</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int count = 1;}
+                    @foreach (var user in Model.Users)
+                    {
+                       var result = Model.UserManager.GetRolesAsync(user).Result;
+                        <tr>
+                            <th scope="row">@count</th>
+                            <td>@user.SecondName</td>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>@Model.UserManager.GetRolesAsync(user).Result[0]</td>
+                            <td>@user.PhoneNumber</td>
+                            <td><a><i class="fa fa fa-pencil" style="color: blue; font-weight: bold; font-size: 20px;" aria-hidden="true"></i></a></td>
+                            <td><a asp-action="DeleteUser" asp-controller="Admin" asp-route-id="@user.Id" ><i class="fa fa-minus-square-o" style="color: red; font-weight: bold; font-size: 20px;" aria-hidden="true"></i></a></td>                          
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

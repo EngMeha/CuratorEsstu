@@ -17,12 +17,12 @@
         <ul class="list-group first-menu admin">
             <div class="top-margin"></div>
             <li class="list-group-item pl-3 py-2">
-                <a href="#">
+                <a asp-action="Index" asp-controller="Admin">
                     <i class="fa fa-file " aria-hidden="true"><span class="ml-2 align-middle custom-text">Создание преподавателя</span></i>
                 </a>
             </li>
             <li class="list-group-item custom-icon py-2">
-                <a href="#">
+                <a asp-action="AllEmployee" asp-controller="Admin">
                     <i class="fa fa-people-group" aria-hidden="true"><span class="ml-2 align-middle custom-text">Просмотр сотрудников</span></i>
                 </a>
             </li>
@@ -35,7 +35,7 @@
                 Администратор
             </div>
             <div class="col-lg-1 col-md-1 col-sm-2 col-2 col-xl-1 col-account">
-                <img src="~/img/user.png" alt="" class="account">
+                <a asp-action="LogOut" asp-controller="Admin"><img src="~/img/user.png" alt="" class="account"></a>
             </div>
         </header>
         @RenderBody()

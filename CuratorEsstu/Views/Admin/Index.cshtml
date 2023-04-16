@@ -1,4 +1,54 @@
-﻿
+﻿@using PresentationLayer.Models;
+@model CreateEmployeeModel
 @{
+    
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<div class="center-container">
+    <form asp-action="CreateEmployee" asp-controller="Admin" method="post" class="center-form">
+        <div class="row g-3">
+            <div class="col-6">
+                <label class="form-label">Имя</label>
+                <input asp-for="FirsName" type="text" class="form-control" placeholder="Имя" aria-label="Имя">
+            </div>
+            <div class="col-6">
+                <label class="form-label">Фамилия</label>
+                <input asp-for="SecondName" type="text" class="form-control" placeholder="Фамилия" aria-label="Фамилия">
+            </div>
+            <div class="col-6">
+                <label class="form-label">Отчество</label>
+                <input asp-for="LastName" type="text" class="form-control" placeholder="Отчество">
+            </div>
+            <div class="col-6">
+                <label class="form-label">Номер телефона</label>
+                <input asp-for="Phone" type="text" class="form-control" placeholder="Телефон">
+            </div>
+            <div class="col-5">
+                <label class="form-label">Логин</label>
+                <input asp-for="Login" type="password" class="form-control" placeholder="Пароль">
+            </div>
+            <div class="col-6">
+                <label class="form-label">Пароль</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Пароль">
+            </div>
+            <div class="col-12">
+                <label class="form-label">Эл. почта</label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="Эл. почта">
+            </div>
+            
+            <div class="col-12">
+                <label class="form-label">Должность</label>
+                <select asp-for="Positiion" id="inputState" class="form-select">
+                    <option value="1"  selected>Администратор</option>
+                    <option value="2">Преподаватель</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <div class=" text-center">
+                    <button type="submit" class="button-style"><span>Сохранить</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -18,9 +18,10 @@ namespace BusinessLayer
         IGroup _group;
         IHistoryChangeStudent _historyChangeStudent;
         IStudent _student;
+        IUser _user;
         public DataManager(IBasisOfLearning basisOfLearning, ICraduationDepartament craduationDepartament, IEvent @event,
             IEventOfStudent eventOfStudent, IFormOfStudy formOfStudy, IGroup group, IHistoryChangeStudent historyChangeStudent,
-            IStudent student) 
+            IStudent student, IUser user) 
         {
             _basisOfLearning = basisOfLearning;
             _craduationDepartament= craduationDepartament;
@@ -29,6 +30,7 @@ namespace BusinessLayer
             _group= group;
             _historyChangeStudent= historyChangeStudent;
             _student= student;
+            _user = user;
         }
 
         public IBasisOfLearning BasisOfLearnings { get { return _basisOfLearning; } }
@@ -39,6 +41,7 @@ namespace BusinessLayer
         public IGroup Groups { get { return _group; } }
         public IHistoryChangeStudent HistoryChangeStudents { get { return _historyChangeStudent; } }
         public IStudent Students { get { return _student; } }
+        public IUser Users { get { return _user; } }
 
     }
 }

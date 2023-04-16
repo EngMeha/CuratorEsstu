@@ -1,5 +1,9 @@
-﻿using CuratorEsstu.Models;
+﻿using BusinessLayer;
+using CuratorEsstu.Models;
+using DataLayer.Entity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PresentationLayer.Models;
 using System.Diagnostics;
 
 namespace CuratorEsstu.Controllers
@@ -7,11 +11,6 @@ namespace CuratorEsstu.Controllers
     public class HomeController : Controller
     {
         
-
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

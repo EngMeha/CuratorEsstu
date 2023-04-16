@@ -1,0 +1,22 @@
+﻿@using PresentationLayer.Models
+@model AuthorizationModel
+
+@{
+    Layout = "~/Views/Shared/_AuthorizationLayout.cshtml";
+}
+
+<div class="container row">
+    <form asp-action="Login" asp-controller="Authorization" method="post" class="form-style">
+        <img class="logo" src="https://esstu.ru/uportal/images/logo/newlogo.png" alt="">
+        <p class="title">Авторизация</p>
+        <div class="login-container">
+            <label asp-for="Login"></label>
+            <input type="text" asp-for="Login">
+        </div>
+        <div class="password-container">
+            <label asp-for="Password"></label>
+            <input type="password" asp-for="Password">
+        </div>
+        <button type="submit" class="button-style"><span>Создать</span>
+    </form>
+</div>
