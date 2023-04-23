@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{603ACC43-E64A-4FF8-A39D-E680D17872F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InformationParser", "InformationParser\InformationParser.csproj", "{A284AE03-8D1B-4045-9E1C-404DC00EBACA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{603ACC43-E64A-4FF8-A39D-E680D17872F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{603ACC43-E64A-4FF8-A39D-E680D17872F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{603ACC43-E64A-4FF8-A39D-E680D17872F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A284AE03-8D1B-4045-9E1C-404DC00EBACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A284AE03-8D1B-4045-9E1C-404DC00EBACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A284AE03-8D1B-4045-9E1C-404DC00EBACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A284AE03-8D1B-4045-9E1C-404DC00EBACA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

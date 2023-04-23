@@ -4,6 +4,7 @@ using BusinessLayer;
 using Microsoft.AspNetCore.Identity;
 using DataLayer.Entity;
 using PresentationLayer;
+using InformationParser;
 
 namespace CuratorEsstu.Controllers
 {
@@ -40,6 +41,7 @@ namespace CuratorEsstu.Controllers
 
         public async Task<IActionResult> EventCity()
         {
+            ParserWorker parserWorker = new ParserWorker();
             return View();
         }
 

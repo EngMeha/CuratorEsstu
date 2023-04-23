@@ -6,6 +6,7 @@ using DataLayer.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Quartz.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddTransient<IHistoryChangeStudent, EFHistoryChangeStudent>();
 builder.Services.AddTransient<IStudent, EFStudent>();
 builder.Services.AddTransient<IUser, EFUser>();
 builder.Services.AddScoped<DataManager>();
+
 
 //подключаем identity
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DiplomContext>();

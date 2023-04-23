@@ -16,8 +16,6 @@ namespace DataLayer
         public DbSet<HistoryChangeStudent> HistoryChangeStudent { get; set; }
         public DbSet<CraduationDepartament> CraduationDepartament { get; set; }
         public DbSet<FormOfStudy> FormOfStudy { get; set; }
-
-
         public DiplomContext(DbContextOptions<DiplomContext> options) : base(options) { }
     }
 

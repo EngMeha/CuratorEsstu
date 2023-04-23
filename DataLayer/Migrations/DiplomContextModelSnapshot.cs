@@ -36,7 +36,7 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BasisOfLearning");
+                    b.ToTable("BasisOfLearning", (string)null);
                 });
 
             modelBuilder.Entity("DataLayer.Entity.CraduationDepartament", b =>
@@ -53,7 +53,7 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CraduationDepartament");
+                    b.ToTable("CraduationDepartament", (string)null);
                 });
 
             modelBuilder.Entity("DataLayer.Entity.Event", b =>
@@ -76,7 +76,7 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Event");
+                    b.ToTable("Event", (string)null);
                 });
 
             modelBuilder.Entity("DataLayer.Entity.EventOfStudent", b =>
@@ -99,7 +99,7 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("EventOfStudent");
+                    b.ToTable("EventOfStudent", (string)null);
                 });
 
             modelBuilder.Entity("DataLayer.Entity.FormOfStudy", b =>
@@ -116,7 +116,7 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FormOfStudy");
+                    b.ToTable("FormOfStudy", (string)null);
                 });
 
             modelBuilder.Entity("DataLayer.Entity.Group", b =>
@@ -149,7 +149,7 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Group");
+                    b.ToTable("Group", (string)null);
                 });
 
             modelBuilder.Entity("DataLayer.Entity.HistoryChangeStudent", b =>
@@ -176,7 +176,7 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("HistoryChangeStudent");
+                    b.ToTable("HistoryChangeStudent", (string)null);
                 });
 
             modelBuilder.Entity("DataLayer.Entity.Student", b =>
@@ -240,7 +240,7 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Student");
+                    b.ToTable("Student", (string)null);
                 });
 
             modelBuilder.Entity("DataLayer.Entity.User", b =>
