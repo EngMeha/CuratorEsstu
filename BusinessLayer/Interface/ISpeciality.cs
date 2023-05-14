@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Interface
 {
-    public interface IFormOfStudy
+    public interface ISpeciality
     {
-        Task<FormOfStudy> GetFormOfStudy(int id, bool include = false);
-        Task<List<FormOfStudy>> GetAllFormOfStudy(bool include = false);
+        Task CreateSpeciality(string title, string code);
+        Task AllDeleteSpesciality();
+        Task<Speciality> GetSpeciality(string title);
     }
 }

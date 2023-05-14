@@ -41,7 +41,7 @@ namespace CuratorEsstu.Controllers
                         case "Администратор":
                             return RedirectToAction("Index", "Admin");
                         case "Куратор":
-                            return RedirectToAction("Index", "Teacher");
+                            return RedirectToAction("CreateUser", "Teacher");
                     }
                 }
             }

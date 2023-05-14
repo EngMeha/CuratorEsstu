@@ -1,4 +1,5 @@
-﻿using AngleSharp.Html.Dom;
+﻿using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
 using DataLayer.Entity;
 using InformationParser.Interface;
 using System;
@@ -13,16 +14,30 @@ namespace InformationParser.Implementation
     {
         public string BaseUrl { get; set; } = "https://uuopera.ru/afisha/";
 
-        public Event[] Parser(IHtmlDocument document)
+        public List<Event> Parser(IHtmlDocument document)
         {
             List<Event> events = new List<Event>();
             var listItem = document.QuerySelectorAll("div").Where(x => x.ClassName != null && x.ClassName.Contains("b-post b-post-list"));
             foreach (var item in listItem)
             {
-                var title = item.QuerySelectorAll("h2").Where(x => x.ClassName.Contains("post-title")).First().QuerySelector("a").TextContent;
+                string title = item.QuerySelectorAll("h2").Where(x => x.ClassName.Contains("post-title")).First().QuerySelector("a").TextContent;
+                string dateParser = item.QuerySelectorAll("div").Where(x => x.ClassName.Contains("b-post-txt")).First().QuerySelector("p").TextContent;
+                string description = item.QuerySelectorAll("div").Where(x => x.ClassName.Contains("b-post-txt")).First().QuerySelector("a").QuerySelector("p").TextContent;
+                var img = item.QuerySelectorAll("div").Where(x => x.ClassName.Contains("b-post-img")).First().QuerySelector("a>img[src]").Attributes["src"].Value;
+                var url = item.QuerySelectorAll("div").Where(x => x.ClassName.Contains("b-post-txt")).First().QuerySelector("a").Attributes["href"].Value;
+                var date = DateTime.Parse(dateParser);
+                events.Add(new Event()
+                {
+                    CreateDate = DateTime.Now,
+                    Comment = description,
+                    Url = url,
+                    DateTimeEvent = date,
+                    Title = title,
+                    Img = img
+                });
             }
 
-            return events.ToArray();
+            return events.ToList();
         }
     }
 }

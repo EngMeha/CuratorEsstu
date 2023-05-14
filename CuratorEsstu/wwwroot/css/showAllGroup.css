@@ -1,0 +1,26 @@
+.title-block-all-group{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.item-group-modal{
+    border: 2px solid #000;
+}
+
+.block-my-group{
+    max-height: 60vh;
+    overflow: auto;
+}
+
+.block-all-group {
+    max-height: 60vh;
+    overflow: auto;
+}
+
+.button-block{
+    width: 100px;
+    margin: 0 auto;
+}
+.external-class{
+    height: 65vh;
+}

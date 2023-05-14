@@ -26,7 +26,7 @@ namespace CuratorEsstu.Controllers
             _serviceManager = new ServiceManager(_dataManager);
         }
 
-        public async Task<IActionResult> AllEmployee() => View(_serviceManager.UserService.ViewAllEmployee(_userManager, await _userManager.Users.ToListAsync()));
+        public async Task<IActionResult> AllEmployee() => View(await _serviceManager.UserService.ViewAllEmployee(_userManager));
         
         public async Task<IActionResult> DeleteUser(string id)
         {

@@ -17,15 +17,19 @@ namespace BusinessLayer.Implementation
         {
             _context = context;
         }
-        public async Task<BasisOfLearning> GetBasisOfLearning(int id, bool include = false)
+        public async Task<BasisOfLearning> GetBasisOfLearning(string title, bool include = false)
         {
+            if (title.Equals("договор"))
+            {
+                title = "контракт";
+            }
             if (include)
             {
-                return await _context.BasisOfLearning.Include(x => x.Students).FirstOrDefaultAsync(x => x.Id == id);
+                return await _context.BasisOfLearning.Include(x => x.Students).FirstOrDefaultAsync(x => x.Title.ToLower().Equals(title.ToLower()));
             }
             else
             {
-                return  await _context.BasisOfLearning.FirstOrDefaultAsync(x => x.Id == id);
+                return  await _context.BasisOfLearning.FirstOrDefaultAsync(x => x.Title.ToLower().Equals(title.ToLower()));
             }
         }
 

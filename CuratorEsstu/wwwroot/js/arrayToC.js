@@ -14,3 +14,28 @@ function reply_click(clicked_id)
         console.log(element);
     });
 }
+
+function sendArrayForEvent(parametrs) {
+    const title = $('#title').val();
+    const dateEvent = $('#dateEvent').val();
+    const eventId = $('#eventId').val();
+    $.ajax({
+        
+        type: 'POST',
+        url: parametrs.url,
+        data: { 'groups': array, 'title': title, 'dateEvent': dateEvent, 'idEvent': eventId },
+        success: function (response) {
+            window.location.href = response.redirectToUrl;
+        }
+    });
+};
+
+function sendArrayForGroup(parametrs) {
+    $.ajax({
+
+        type: 'POST',
+        url: parametrs.url,
+        data: { 'groups': array},
+        
+    });
+};

@@ -1,0 +1,28 @@
+﻿@using PresentationLayer.Models
+@model DescriptionEventModal
+@{
+    Layout = "";
+}
+<div class="modal-header">
+
+    <div class="close-modal" id="close" onclick="closeModal()">&#10006;</div>
+    <div class="title-header">Информация о мероприятии</div>
+</div>
+<div class="modal-body">
+    <div class="link">
+        <span class="title-link">Ссылка</span>
+        <a href="@Model.Url"> <p>@Model.Url</p> </a>
+    </div>
+    <hr>
+    <div class="description-event-modal">
+        <span class="title-link">Описание</span>
+        <div class="description">
+            <p>
+                @Model.Description
+            </p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a asp-action="CreateEvent" asp-controller="Teacher" asp-route-idEvent="@Model.Id"><button class="close-modal-btn">Создать мероприятие</button></a>
+</div>

@@ -10,7 +10,7 @@ namespace InformationParser.Interface
 {
     public interface IParser
     {
-        Event[] Parser(IHtmlDocument document);
+        List<Event> Parser(IHtmlDocument document);
         string BaseUrl { get; set; }
     }
 }

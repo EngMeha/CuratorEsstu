@@ -11,7 +11,9 @@ namespace BusinessLayer.Interface
     {
         Task<Student> GetStudent(int id, bool include = true);
         Task<List<Student>> GetAllStudent(bool include = true);
+        Task<List<Student>> GetStudentsByGroup(GroupsOfTeacher groupsOfTeacher);
         Task SaveStudent(Student student);
         Task DeleteStudent(Student student);
+        List<Student> GetStudentsByGroupForParse(GroupsDirectory groupsOfTeacher);
     }
 }

@@ -18,22 +18,55 @@ namespace BusinessLayer.Implementation
             _context= context;
         }
 
-        public async Task DeleteGroup(Group group)
+        public async Task DeleteGroup(GroupsOfTeacher group)
         {
-            List<Student> studentOfGroup = _context.Student.Where(x=>x.Group == group).ToList();
+            /*List<Student> studentOfGroup = _context.Student.Where(x=>x.Group == group).ToList();
             foreach (Student student in studentOfGroup)
             {
                 _context.Student.Remove(student);
-            }
+            }*/
             _context.Group.Remove(group);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Group>> GetAllGroups(bool include = true)
+        public async Task<List<GroupsOfTeacher>> GetListGroupOfTeacher(User user, bool include)
         {
             if (include)
             {
-                return await _context.Group.Include(x => x.Students).Include(x=>x.User).Include(x=>x.CraduationDepartament).Include(x=>x.FormOfStudy).ToListAsync();
+                return await _context.Group.Include(x => x.GroupDirectory).Include(x => x.GroupDirectory.Students)
+                    .Include(x => x.User).Where(x => x.User.Id == user.Id).ToListAsync();
+            }
+            else
+            {
+                return await _context.Group.Include(x => x.User).Include(x=>x.GroupDirectory).Where(x => x.User.Id == user.Id).ToListAsync();
+            }
+        }
+
+        public async Task<List<GroupsOfTeacher>> GetListGroupOfTeacherBySort(User user, string findGroup)
+        {
+            if (findGroup.Equals("Все"))
+            {
+                return await _context.Group.Include(x => x.GroupDirectory)
+                .Include(x => x.User).Where(x => x.User.Id == user.Id).ToListAsync();
+            }
+            else
+            {
+                return await _context.Group.Include(x => x.GroupDirectory)
+                .Include(x => x.User).Where(x => x.User.Id == user.Id && x.GroupDirectory.Title.Contains(findGroup)).ToListAsync();
+            }
+            
+        }
+        public async Task<GroupsOfTeacher> GetFirstGroup(User user)
+        {
+            return await _context.Group.Include(x => x.CraduationDepartament)
+                .Include(x => x.GroupDirectory).Include(x => x.GroupDirectory.Students).Include(x => x.GroupDirectory.Speciality).FirstAsync(x=>x.User.Id == user.Id);
+        }
+
+        public async Task<List<GroupsOfTeacher>> GetAllGroups(bool include = true)
+        {
+            if (include)
+            {
+                return await _context.Group.Include(x=>x.User).Include(x=>x.CraduationDepartament).ToListAsync();
             }
             else
             {
@@ -41,11 +74,16 @@ namespace BusinessLayer.Implementation
             }
         }
 
-        public async Task<Group> GetGroup(int id, bool include = true)
+        public async Task<GroupsOfTeacher> GetGroup(int id, bool include = true)
         {
             if (include)
             {
-                return await _context.Group.Include(x=>x.Students).Include(x => x.User).Include(x => x.CraduationDepartament).Include(x => x.FormOfStudy).FirstOrDefaultAsync(x=>x.Id==id);
+                GroupsOfTeacher groups = await (from gr in _context.Group.Include(x => x.CraduationDepartament)
+                .Include(x => x.GroupDirectory.Students).Include(x => x.GroupDirectory.Speciality)
+                                                      join st in _context.Student.Include(x => x.BasisOfLerning).Include(x => x.Group)
+                                                      on gr.GroupDirectory.Id equals st.Group.Id
+                                                      select gr).FirstOrDefaultAsync(x=>x.Id == id);
+                return groups;
             }
             else
             {
@@ -53,15 +91,15 @@ namespace BusinessLayer.Implementation
             }
         }
 
-        public async Task SaveGroup(Group group)
+        public async Task SaveGroup(GroupsOfTeacher group)
         {
             if (group.Id == 0)
             {
-                _context.Group.Add(group);
+                _context.Entry(group).State = EntityState.Added;
             }
             else
             {
-                _context.Entry(group).State= EntityState.Modified;
+                _context.Entry(group).State = EntityState.Modified;
             }
             await _context.SaveChangesAsync();
         }

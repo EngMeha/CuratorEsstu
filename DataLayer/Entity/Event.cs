@@ -14,5 +14,8 @@ namespace DataLayer.Entity
         public DateTime DateTimeEvent { get; set; }
         public string Comment { get; set; }
         public List<EventOfStudent> EventOfStudents { get; set; }
+        public string Url { get; set; }
+        public string Img { get; set; }
+        public string Title { get; set; }
     }
 }

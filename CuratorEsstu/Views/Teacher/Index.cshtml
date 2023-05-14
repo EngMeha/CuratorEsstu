@@ -1,54 +1,51 @@
-﻿
-
+﻿@using PresentationLayer.Models;
+@using DataLayer.Entity;
+@using System.Globalization;
+@model EventOfCalendarModel
 @{
     Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+    int startDayActualMounth = (int)new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).DayOfWeek;
+    int lastDayActualMount = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+    int lastDayOfPastMounth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
+    int startDayViewOnCalendar = lastDayOfPastMounth - startDayActualMounth + 2;
+    int startDaySecondDay = (int)new DateTime(DateTime.Now.Year, DateTime.Now.Month+1, 1).DayOfWeek - 1;
 }
 <div class="event-container">
     <div class="calendar-container">
         <div class="calendar-header">
-            <h1> November<button>▾</button></h1>
-            <p>2018</p>
+            <h1>@DateTime.Now.ToString("MMMM", CultureInfo.GetCultureInfo("ru-RU"))<button>▾</button></h1>
+            <p>@DateTime.Now.Year</p>
         </div>
         <div class="calendar">
-            <span class="day-name">Mon</span><span class="day-name">Tue</span><span class="day-name">Wed</span><span class="day-name">Thu</span><span class="day-name">Fri</span><span class="day-name">Sat</span><span class="day-name">Sun</span>
-            <div class="day day--disabled">30</div>
-            <div class="day day--disabled">31</div>
-            <div class="day" id="day1" onclick="reply_click(this.id)">1</div>
-            <div class="day" id="day2" onclick="reply_click(this.id)">2</div>
-            <div class="day">
-                <div class="title-day">3</div>
-                <section class="task task--info">События События События События</section>
-            </div>
-            <div class="day">4</div>
-            <div class="day">5</div>
-            <div class="day">6</div>
-            <div class="day">7</div>
-            <div class="day">8</div>
-            <div class="day">9</div>
-            <div class="day">10</div>
-            <div class="day">11</div>
-            <div class="day">12</div>
-            <div class="day">13</div>
-            <div class="day">14</div>
-            <div class="day">15</div>
-            <div class="day">16</div>
-            <div class="day">17</div>
-            <div class="day">18</div>
-            <div class="day">19</div>
-            <div class="day">20</div>
-            <div class="day">21</div>
-            <div class="day">22</div>
-            <div class="day">23</div>
-            <div class="day">24</div>
-            <div class="day">25</div>
-            <div class="day">26</div>
-            <div class="day">27</div>
-            <div class="day">28</div>
-            <div class="day">29</div>
-            <div class="day">30</div>
-            <div class="day">31</div>
-            <div class="day day--disabled">1</div>
-            <div class="day day--disabled">2</div>
+            <span class="day-name">Пн</span><span class="day-name">Вт</span><span class="day-name">Ср</span><span class="day-name">Чт</span><span class="day-name">Пт</span><span class="day-name">Сб</span><span class="day-name">Вс</span>
+            @for(int i = startDayViewOnCalendar; i <= lastDayOfPastMounth; i++)
+            {
+                <div class="day day--disabled" onclick="reply_click(this.id)">@i</div>
+                
+            }
+            
+            @for (int i = 1; i <= lastDayActualMount; i++)
+            {
+                if (Model.Events.Any(x=>x.DateTimeEvent.Day == i))
+                {
+                    <div class="day" id="day_@i">
+                        <div class="title-day">@i</div>
+                        <section class="task task--info">@Model.Events.FirstOrDefault(x=>x.DateTimeEvent.Day == i).Title</section>
+                    </div>
+                }
+                else
+                {
+                    <div class="day" id="day_@i">@i</div>
+                }
+                <script>
+                    var html = 
+                    $('#day_@i')
+                </script>
+            }
+            @for (int i = 1; i <= 7 - startDaySecondDay; i++)
+            {
+                <div class="day day--disabled">@i</div>
+            }
 
         </div>
     </div>

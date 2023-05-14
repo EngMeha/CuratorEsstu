@@ -18,6 +18,19 @@ namespace BusinessLayer.Implementation
             _context = context;
         }
 
+        public async Task CreateDepartment(string title)
+        {
+            if (!await _context.CraduationDepartament.AnyAsync(x=>x.Title.Equals(title)))
+            {
+                CraduationDepartament craduationDepartament = new CraduationDepartament()
+                {
+                    Title = title
+                };
+                _context.CraduationDepartament.Add(craduationDepartament);
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<List<CraduationDepartament>> GetAllCraduationDepartament(bool include = false)
         {
             if (include)
@@ -30,15 +43,15 @@ namespace BusinessLayer.Implementation
             }
         }
 
-        public async Task<CraduationDepartament> GetCraduationDepartament(int id, bool include = false)
+        public async Task<CraduationDepartament> GetCraduationDepartament(string title, bool include = false)
         {
             if (include)
             {
-                return await _context.CraduationDepartament.Include(x => x.Groups).FirstOrDefaultAsync(x => x.Id == id);
+                return await _context.CraduationDepartament.Include(x => x.Groups).FirstOrDefaultAsync(x => x.Title.Equals(title));
             }
             else
             {
-                return await _context.CraduationDepartament.FirstOrDefaultAsync(x => x.Id == id);
+                return await _context.CraduationDepartament.FirstOrDefaultAsync(x => x.Title.Equals(title));
             }
         }
     }

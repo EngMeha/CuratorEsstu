@@ -59,7 +59,10 @@ thead th:first-child {
   color: white;
     
 }
-
+tbody th:first-child {
+    left: 0;
+    z-index: 2;
+}
 
 tbody {
   overflow: scroll;
@@ -91,3 +94,8 @@ tr > :first-child {
 .title-cat{
     font-weight: 500;
 }
+.top-block-plus {
+    width: 80px;
+    margin: 0 auto;
+}
+

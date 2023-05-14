@@ -1,0 +1,123 @@
+﻿@using DataLayer.Entity;
+@using PresentationLayer.Models;
+@model GroupInfoModel
+
+@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+    List<GroupsOfTeacher> groupsOfTeachers = (List<GroupsOfTeacher>)ViewData["listGroup"];
+}
+<div class="row-container">
+    <div class="row container-сenter ">
+        <div class="col-sm-12 col-md-2 col-lg-2 align-self-center">
+            <div class="top-block-plus">
+                <a asp-action="ShowAllGroup" asp-controller="Teacher"><img src="~/img/icons8-плюс-80.png" alt=""></a>
+            </div>
+            <div class="row justify-content-center">
+                <div class="form__group field form__group__style">
+                    <form asp-action="CheckGroup" asp-controller="Teacher" method="get">
+                        <input type="text" class="form__field" placeholder="Name" name="name" id='name' required />
+                        <label for="name" class="form__label">Группа</label>
+                    </form>
+                </div>
+                <div class="find-block">
+                    <div class="block block-start">
+                        @foreach (GroupsOfTeacher item in groupsOfTeachers)
+                        {
+                            <form asp-action="CheckGroup" asp-controller="Teacher" method="post">
+                                <input type="text" hidden name="idGroup" value="@item.Id" />
+                                <button type="submit" class="item-group item-group-start">
+                                    <div class="item-title">
+                                        @item.GroupDirectory.Title
+                                    </div>
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-10 col-lg-10 align-self-center">
+            <div class="group-info">
+                <div class="row">
+                    <div class="col-6">
+                            <div class="row description-group">
+                                <div class="title-cat col-lg-3 col-md-3">
+                                    Группа: 
+                                </div>
+                                <div class="value-cat col">
+                                    @Model.GroupsOfTeacher.GroupDirectory.Title
+                                </div>
+                            </div>
+
+                            <div class="row description-group">
+                                <div class="title-cat col-lg-3 col-md-4">
+                                    Направление: 
+                                </div>
+                                <div class="value-cat col">
+                                    @Model.GroupsOfTeacher.GroupDirectory.Speciality.Code @Model.GroupsOfTeacher.GroupDirectory.Speciality.Title
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row description-group">
+                            <div class="title-cat col-lg-3 col-md-3">
+                                Курс: 
+                            </div>
+                            <div class="value-cat col">
+                                @Model.GroupsOfTeacher.Well
+                            </div>
+                        </div>
+
+                        <div class="row description-group">
+                            <div class="title-cat col-lg-3 col-md-4">
+                                Количество: 
+                            </div>
+                            <div class="value-cat col">
+                                @Model.GroupsOfTeacher.GroupDirectory.Students.Count()
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="table-container">
+
+                <div class="table-horizontal-container">
+                    <table class="unfixed-table">
+                    <thead>
+                        <tr>
+                        <th>Ф.И.О.</th>
+                        @*<th>Курс</th>*@
+                        <th>Основа обучения</th>
+                        <th>Гражданство</th>
+                        <th>Полная семья</th>
+                        <th>Сирота</th>
+                        <th>Нуждается в общежитие</th>
+                        <th>Телефон</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Student student in Model.GroupsOfTeacher.GroupDirectory.Students)
+                        {
+                                string fullFamily = student.FullFamily ? "да" : "нет";
+                                string orphan = student.Orphan ? "да" : "нет";
+                                string needHostel = student.NeedHostel ? "да" : "нет";
+                                <tr>
+                                <th>@student.FIO</th>
+                                @*<td>4</td>*@
+                                <td>@student.BasisOfLerning.Title</td>
+                                <td>@student.Citizenship</td>
+                                <td>@fullFamily</td>
+                                <td>@orphan</td>
+                                <td>@needHostel</td>
+                                <td>@student.PhoneOfStudent</td>
+                            </tr>
+                        }    
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

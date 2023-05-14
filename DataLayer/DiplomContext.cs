@@ -10,12 +10,13 @@ namespace DataLayer
         public DbSet<User> User { get; set; }
         public DbSet<Event> Event { get; set; }
         public DbSet<EventOfStudent> EventOfStudent { get; set; }
-        public DbSet<Group> Group { get; set; }
+        public DbSet<GroupsOfTeacher> Group { get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<BasisOfLearning> BasisOfLearning { get; set; }
         public DbSet<HistoryChangeStudent> HistoryChangeStudent { get; set; }
         public DbSet<CraduationDepartament> CraduationDepartament { get; set; }
-        public DbSet<FormOfStudy> FormOfStudy { get; set; }
+        public DbSet<GroupsDirectory> GroupDirectory { get; set; }
+        public DbSet<Speciality> Speciality { get; set; }
         public DiplomContext(DbContextOptions<DiplomContext> options) : base(options) { }
     }
 

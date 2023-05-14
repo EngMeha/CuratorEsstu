@@ -42,7 +42,7 @@ namespace BusinessLayer.Implementation
             if (include)
             {
                 return await _context.Student.Include(x => x.BasisOfLerning).Include(x => x.HistoryChangeStudent).Include(x => x.EventOfStudents).Include(x => x.Group)
-                    .Include(x => x.Group.CraduationDepartament).Include(x => x.Group.User).Include(x => x.Group.FormOfStudy).ToListAsync();
+                    .Include(x => x.Group.GroupsOfTeacher).ToListAsync();
             }
             else
             {
@@ -54,13 +54,23 @@ namespace BusinessLayer.Implementation
         {
             if (include)
             {
-                return await _context.Student.Include(x => x.BasisOfLerning).Include(x => x.HistoryChangeStudent).Include(x => x.EventOfStudents).Include(x => x.Group)
-                    .Include(x => x.Group.CraduationDepartament).Include(x => x.Group.User).Include(x => x.Group.FormOfStudy).FirstOrDefaultAsync(x=>x.Id == id);
+                return await _context.Student.Include(x => x.BasisOfLerning).Include(x => x.HistoryChangeStudent).Include(x => x.EventOfStudents)
+                    .Include(x => x.Group).FirstOrDefaultAsync(x=>x.Id == id);
             }
             else
             {
                 return await _context.Student.FirstOrDefaultAsync(x => x.Id == id);
             }
+        }
+
+        public List<Student> GetStudentsByGroupForParse(GroupsDirectory groupsOfTeacher)
+        {
+            return groupsOfTeacher.Students.ToList();
+        }
+
+        public async Task<List<Student>> GetStudentsByGroup(GroupsOfTeacher groupsOfTeacher)
+        {
+            return await _context.Student.Include(x => x.Group).Include(x=>x.Group.GroupsOfTeacher).Include(x => x.BasisOfLerning).Where(x => x.Group.Id == groupsOfTeacher.GroupDirectory.Id).ToListAsync();
         }
     }
 }

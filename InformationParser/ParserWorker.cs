@@ -1,5 +1,7 @@
-﻿using AngleSharp.Html.Dom;
+﻿using AngleSharp.Dom.Events;
+using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
+using BusinessLayer;
 using DataLayer.Entity;
 using InformationParser.Implementation;
 using InformationParser.Interface;
@@ -13,44 +15,57 @@ namespace InformationParser
 {
     public class ParserWorker
     {
-        bool _isActive;
 
-        public bool IsActive { get { return _isActive; } }
 
-        public event Action<object> OnCompleted;
+        DataManager _dataManager;
 
         /// <summary>
         /// Парсер автоматически записывает данные в базу.
         /// При инициализации объекта запускается парсинг данных
         /// </summary>
-        public ParserWorker()
+        public ParserWorker(DataManager dataManager)
         {
-            _isActive = true;
-            Worker();
+            _dataManager = dataManager;
         }
 
-        private async void Worker()
+        public async Task Worker()
         {
-            List<IParser> listParser = new List<IParser>()
+            List<DataLayer.Entity.Event> events = await _dataManager.Events.GetAllEvents();
+            if (DateTime.Now.Day - events.First().CreateDate.Day > 30)
             {
-                new BTOBParser()
-            };
-            foreach (IParser item in listParser)
-            {
-                if (!IsActive)
+                List<IParser> listParser = new List<IParser>()
                 {
-                    OnCompleted?.Invoke(this);
-                    return;
+                    new BTOBParser(),
+                    new CultureParser()
+                };
+                await _dataManager.Events.DeleteEvent();
+                foreach (IParser item in listParser)
+                {
+                    if (item.BaseUrl == null)
+                    {
+                        ICultureParser culture = (ICultureParser)item;
+                        HtmlLoader htmlLoader = new HtmlLoader(culture.Urls);
+                        List<string> sources = await htmlLoader.GetListSourceAsync();
+                        HtmlParser domParser = new HtmlParser();
+                        foreach (string source in sources)
+                        {
+                            IHtmlDocument document = await domParser.ParseDocumentAsync(source);
+                            List<DataLayer.Entity.Event> result = item.Parser(document);
+                            await _dataManager.Events.SaveEvent(result);
+                        }
+                    }
+                    else
+                    {
+                        HtmlLoader htmlLoader = new HtmlLoader(item.BaseUrl);
+                        string source = await htmlLoader.GetSourceAsync();
+                        HtmlParser domParser = new HtmlParser();
+                        IHtmlDocument document = await domParser.ParseDocumentAsync(source);
+                        List<DataLayer.Entity.Event> result = item.Parser(document);
+                        await _dataManager.Events.SaveEvent(result);
+                    }
                 }
-                HtmlLoader htmlLoader = new HtmlLoader(item.BaseUrl);
-                string source = await htmlLoader.GetSourceAsync();
-                HtmlParser domParser = new HtmlParser();
-                IHtmlDocument document = await domParser.ParseDocumentAsync(source);
-                Event[] result = item.Parser(document);
-                OnCompleted?.Invoke(this);
-                _isActive = false;
             }
-            
+
         }
     }
 }

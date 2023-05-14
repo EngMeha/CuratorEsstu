@@ -1,8 +1,10 @@
 using BusinessLayer;
 using BusinessLayer.Implementation;
 using BusinessLayer.Interface;
+using CuratorEsstu.JobsQuatz;
 using DataLayer;
 using DataLayer.Entity;
+using InformationParser;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +19,16 @@ builder.Services.AddTransient<IBasisOfLearning, EFBasisOfLearning>();
 builder.Services.AddTransient<ICraduationDepartament, EFCraduationDepartament>();
 builder.Services.AddTransient<IEvent, EFEvent>();
 builder.Services.AddTransient<IEventOfStudent, EFEventOfStudy>();
-builder.Services.AddTransient<IFormOfStudy, EFFormOfStudy>();
 builder.Services.AddTransient<IGroup, EFGroup>();
 builder.Services.AddTransient<IHistoryChangeStudent, EFHistoryChangeStudent>();
 builder.Services.AddTransient<IStudent, EFStudent>();
 builder.Services.AddTransient<IUser, EFUser>();
+builder.Services.AddTransient<ISpeciality, EFSpeciality>();
+builder.Services.AddTransient<IGropsDepartmen, EFGroupsDepartmen>();
 builder.Services.AddScoped<DataManager>();
+builder.Services.AddTransient<JobFactory>();
+builder.Services.AddScoped<DataJob>();
+builder.Services.AddScoped<ParserWorker>();
 
 
 //подключаем identity
@@ -38,6 +44,8 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
     UserManager<User> userManager = service.GetRequiredService<UserManager<User>>();
     RoleManager<IdentityRole> roleManager = service.GetRequiredService<RoleManager<IdentityRole>>();
     await InitializeDB.InitRole(userManager, roleManager);
+
+    DataScheduler.Start(service);
 }
 
 
@@ -58,7 +66,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+//Authorization
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Authorization}/{action=Login}/{id?}");

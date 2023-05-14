@@ -54,10 +54,7 @@
 }
 
 /* modal */
-.modal,
-.modal-box {
-  z-index: 90000;
-}
+
 
 .modal-sandbox {
   position: fixed;
@@ -199,4 +196,47 @@ hr{
     top: 0; 
     opacity: 1;
   }
+}
+
+.down-block {
+    width: 100px;
+    height: 100px;
+    top: 82vh;
+    right: 5vh;
+    position: absolute;
+    z-index: 10;
+}
+
+
+.image-icon-plus {
+    margin-top: 15px;
+    width: 80px;
+    transition: all 1s;
+}
+
+.image-icon-plus:hover {
+    width: 90px;
+}
+
+.group-modal {
+    width: 80%;
+    min-height: 100px;
+    overflow: auto;
+    margin: 0 auto;
+}
+
+.item-group-modal {
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid #000;
+    background-color: #00004d;
+    color: #fff;
+    padding: 0;
+}
+
+.title-group-modal {
+    width: 35px;
+    height: 20px;
+    margin: 0 auto;
+    margin-top: 10px;
 }

@@ -19,9 +19,9 @@ namespace PresentationLayer.Service
             _dataManager = dataManager;
         }
 
-        public ViewAllEmployeeModel ViewAllEmployee(UserManager<User> userManager, List<User> users)
+        public async Task<ViewAllEmployeeModel> ViewAllEmployee(UserManager<User> userManager)
         {
-            return AllEmployeeMapper.FromDbToModel(userManager, users);
+            return AllEmployeeMapper.FromDbToModel(userManager, await _dataManager.Users.GetListUser(true));
         }
     }
 }

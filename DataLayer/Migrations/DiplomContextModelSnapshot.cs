@@ -36,7 +36,7 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BasisOfLearning", (string)null);
+                    b.ToTable("BasisOfLearning");
                 });
 
             modelBuilder.Entity("DataLayer.Entity.CraduationDepartament", b =>
@@ -53,7 +53,7 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CraduationDepartament", (string)null);
+                    b.ToTable("CraduationDepartament");
                 });
 
             modelBuilder.Entity("DataLayer.Entity.Event", b =>
@@ -74,9 +74,21 @@ namespace DataLayer.Migrations
                     b.Property<DateTime>("DateTimeEvent")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Img")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Event", (string)null);
+                    b.ToTable("Event");
                 });
 
             modelBuilder.Entity("DataLayer.Entity.EventOfStudent", b =>
@@ -99,10 +111,10 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("EventOfStudent", (string)null);
+                    b.ToTable("EventOfStudent");
                 });
 
-            modelBuilder.Entity("DataLayer.Entity.FormOfStudy", b =>
+            modelBuilder.Entity("DataLayer.Entity.GroupsDirectory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,16 +122,28 @@ namespace DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Href")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SpecialityId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("FormOfStudy", (string)null);
+                    b.HasIndex("SpecialityId");
+
+                    b.ToTable("GroupDirectory");
                 });
 
-            modelBuilder.Entity("DataLayer.Entity.Group", b =>
+            modelBuilder.Entity("DataLayer.Entity.GroupsOfTeacher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,26 +154,25 @@ namespace DataLayer.Migrations
                     b.Property<int>("CraduationDepartamentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FormOfStudyId")
+                    b.Property<int>("GroupDirectoryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("Well")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CraduationDepartamentId");
 
-                    b.HasIndex("FormOfStudyId");
+                    b.HasIndex("GroupDirectoryId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Group", (string)null);
+                    b.ToTable("Group");
                 });
 
             modelBuilder.Entity("DataLayer.Entity.HistoryChangeStudent", b =>
@@ -176,7 +199,28 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("HistoryChangeStudent", (string)null);
+                    b.ToTable("HistoryChangeStudent");
+                });
+
+            modelBuilder.Entity("DataLayer.Entity.Speciality", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Speciality");
                 });
 
             modelBuilder.Entity("DataLayer.Entity.Student", b =>
@@ -190,20 +234,31 @@ namespace DataLayer.Migrations
                     b.Property<int>("BasisOfLerningId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Citizenship")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("FullFamily")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Href")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -227,20 +282,13 @@ namespace DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Scholarship")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("SecondName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BasisOfLerningId");
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Student", (string)null);
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("DataLayer.Entity.User", b =>
@@ -472,7 +520,18 @@ namespace DataLayer.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("DataLayer.Entity.Group", b =>
+            modelBuilder.Entity("DataLayer.Entity.GroupsDirectory", b =>
+                {
+                    b.HasOne("DataLayer.Entity.Speciality", "Speciality")
+                        .WithMany("GroupsDirectory")
+                        .HasForeignKey("SpecialityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Speciality");
+                });
+
+            modelBuilder.Entity("DataLayer.Entity.GroupsOfTeacher", b =>
                 {
                     b.HasOne("DataLayer.Entity.CraduationDepartament", "CraduationDepartament")
                         .WithMany("Groups")
@@ -480,9 +539,9 @@ namespace DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataLayer.Entity.FormOfStudy", "FormOfStudy")
-                        .WithMany("Groups")
-                        .HasForeignKey("FormOfStudyId")
+                    b.HasOne("DataLayer.Entity.GroupsDirectory", "GroupDirectory")
+                        .WithMany("GroupsOfTeacher")
+                        .HasForeignKey("GroupDirectoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -494,7 +553,7 @@ namespace DataLayer.Migrations
 
                     b.Navigation("CraduationDepartament");
 
-                    b.Navigation("FormOfStudy");
+                    b.Navigation("GroupDirectory");
 
                     b.Navigation("User");
                 });
@@ -518,7 +577,7 @@ namespace DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataLayer.Entity.Group", "Group")
+                    b.HasOne("DataLayer.Entity.GroupsDirectory", "Group")
                         .WithMany("Students")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -595,14 +654,16 @@ namespace DataLayer.Migrations
                     b.Navigation("EventOfStudents");
                 });
 
-            modelBuilder.Entity("DataLayer.Entity.FormOfStudy", b =>
+            modelBuilder.Entity("DataLayer.Entity.GroupsDirectory", b =>
                 {
-                    b.Navigation("Groups");
+                    b.Navigation("GroupsOfTeacher");
+
+                    b.Navigation("Students");
                 });
 
-            modelBuilder.Entity("DataLayer.Entity.Group", b =>
+            modelBuilder.Entity("DataLayer.Entity.Speciality", b =>
                 {
-                    b.Navigation("Students");
+                    b.Navigation("GroupsDirectory");
                 });
 
             modelBuilder.Entity("DataLayer.Entity.Student", b =>

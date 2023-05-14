@@ -9,7 +9,7 @@ namespace BusinessLayer.Interface
 {
     public interface IBasisOfLearning
     {
-        Task<BasisOfLearning> GetBasisOfLearning(int id, bool include = false);
+        Task<BasisOfLearning> GetBasisOfLearning(string title, bool include = false);
         Task<List<BasisOfLearning>> GetBasisOfLearnings(bool include = false);
     }
 }

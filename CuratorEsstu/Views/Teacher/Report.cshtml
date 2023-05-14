@@ -1,0 +1,52 @@
+﻿@using DataLayer.Entity;
+
+@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+    List<GroupsOfTeacher> groupsOfTeachers = (List<GroupsOfTeacher>)ViewData["listGroup"];
+}
+<div class="row-container">
+    <div class="row container-сenter ">
+        <div class="col-sm-12 col-md-6 col-lg-6 align-self-center">
+            <div class="row justify-content-center">
+                <div class="form__group field">
+                    <form >
+                        <input type="input" class="form__field" placeholder="Name" name="name" id='name' required />
+                        <label for="name" class="form__label">Группа</label>
+                    </form>
+                </div>
+                <div class="find-block">
+                    <div class="block">
+                        @foreach (GroupsOfTeacher groupsOfTeacher in groupsOfTeachers)
+                        {
+                            <div class="item-group">
+                                <div class="item-title">
+                                    @groupsOfTeacher.GroupDirectory.Title
+                                </div>
+                                <div class="item-count">
+                                    <input type="checkbox" id="@groupsOfTeacher.GroupDirectory.Title" onclick="reply_click(this.id)" class="style-check">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 align-self-center">
+            <div id="date-range" class="row justify-content-start">
+                <div class="group">
+                    <form asp-action="Report" asp-controller="Teacher" method="post" class="text-center">
+                        <label class="title-date">Выберете даты</label>
+                        <input type="date" name="dat1" class="input-date1">
+                        <input type="date" name="dat2" class="input-date2">
+                        <div class="wrapper text-center">
+                            <button type="submit" class="button-style"><span>Сформировать отчет</span>
+                            <button type="button" onclick="sendArrayForGroup({url: '/Teacher/ReportSocialPassport'})" class="button-style"><span>Сформировать соц. паспорт</span>
+                        </div>
+                        <!-- <button type="submit" class="input-button">Сформировать</button> -->
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

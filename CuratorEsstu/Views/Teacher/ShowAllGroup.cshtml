@@ -1,0 +1,65 @@
+﻿@using PresentationLayer.Models
+@using DataLayer.Entity
+@model AllGroupModel
+@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="row-container">
+    <div class="row g-2 container-сenter ">
+        <div class="col-8">
+            <div class="title-block-all-group">
+                Нераспределенные группы
+            </div>
+            <form asp-action="AddGroup" asp-controller="Teacher" method="post">
+                <div class="external-class">
+                    <div class="row g-2 group-all-list block-all-group">
+                        @foreach (GroupsDirectory item in Model.GroupsDirectory)
+                        {
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <div class="item-group item-group-modal">
+                                    <div class="item-title">
+                                        @item.Title
+                                    </div>
+                                    <div class="item-count">
+                                        <input type="checkbox" name="groups" value="@item.Title" class="style-check">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="button-block">
+                    <button type="submit" class="button-style"><span>Добавить</span>
+                </div>
+            </form>
+        </div>
+        <div class="col-4">
+            <div class="title-block-all-group">
+                Ваши группы
+            </div>
+            <form asp-action="DeleteGroup" asp-controller="Teacher" method="post">
+                <div class="external-class">
+                    <div class="row g-2 group-all-list block-my-group">
+                        @foreach (GroupsOfTeacher item in Model.GroupsOfTeachers)
+                        {
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="item-group item-group-modal">
+                                    <div class="item-title">
+                                        @item.GroupDirectory.Title
+                                    </div>
+                                    <div class="item-count">
+                                        <input type="checkbox" name="groups" value="@item.Id" class="style-check">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="button-block">
+                    <button type="submit" class="button-style"><span>Удалить</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

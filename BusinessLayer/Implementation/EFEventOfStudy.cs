@@ -19,16 +19,14 @@ namespace BusinessLayer.Implementation
 
         public async Task CreateEventOfStudent(Event @event, List<Student> student)
         {
-            if (@event.Id == 0)
+            
+            foreach (var item in student)
             {
-                foreach (var item in student)
-                {
-                    EventOfStudent eventOfStudent = new EventOfStudent();
-                    eventOfStudent.Event = @event;
-                    eventOfStudent.Student = item;
-                    _context.EventOfStudent.Add(eventOfStudent);
-                    await _context.SaveChangesAsync();
-                }
+                EventOfStudent eventOfStudent = new EventOfStudent();
+                eventOfStudent.Event = @event;
+                eventOfStudent.Student = item;
+                _context.EventOfStudent.Add(eventOfStudent);
+                await _context.SaveChangesAsync();
             }
         }
 

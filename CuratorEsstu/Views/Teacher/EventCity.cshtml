@@ -1,53 +1,37 @@
-﻿@{
+﻿@using PresentationLayer.Models
+@using DataLayer.Entity
+@model AllEventModel
 
+@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
 }
+
 <div class="row-container">
     <div class="row container-сenter container-scrol">
-        <div class="col-xs-12 col-md-4 col-lg-3 col-xl-3 col-sm-6 item-event">
-            <div class="content-main">
-                <div class="content-item">
-                    <div class="background-item"></div>
-                    <div class="test">
-                        <div class="date-event">
-                            21.01.2022
-                        </div>
-                        <div class="address">
-                            г.Улан-Удэ, ул. Ключевская, д.24
+        @foreach (Event item in Model.Events)
+        {
+            <div class="col-xs-12 col-md-4 col-lg-3 col-xl-3 col-sm-6 item-event"
+             onclick="openModal({url: '/Teacher/DescriptionEvent', data: '@item.Id'})">
+                
+                <div class="content-main">
+                    <div class="content-item">
+                        <div class="background-item"></div>
+                        <div class="test">
+                            <div class="date-event">
+                                @item.DateTimeEvent
+                            </div>
+                            <div class="address">
+                                @item.Title
+                            </div>
                         </div>
                     </div>
+                    <img src="@item.Img" alt="" class="img-event">
                 </div>
-                <img src="https://img3.findglocal.com/686/030/5198370526860306.jpg" alt="" class="img-event">
             </div>
+        }
+        <div class="down-block">
+            <a asp-action="CreateEvent" asp-controller="Teacher"><img src="~/img/icons8-плюс-80.png"  alt="" class="image-icon-plus"> </a>   
         </div>
     </div>
 
-    @*модальное окно*@
-    <div class="modal" id="modal-name">
-        <div class="modal-sandbox"></div>
-        <div class="modal-box">
-            <div class="modal-header">
-                <div class="close-modal" id="close">&#10006;</div>
-                <div class="title-header">Информация о мероприятии</div>
-            </div>
-            <div class="modal-body">
-                <div class="link">
-                    <span class="title-link">Ссылка</span>
-                    <a href="#"> <p>https://vk.com/im?peers=4326607_37895767_c108_436612288</p> </a>
-                </div>
-                <hr>
-                <div class="description-event-modal">
-                    <span class="title-link">Описание</span>
-                    <div class="description">
-                        <p>
-                            Что такое Lorem Ipsum?
-                            Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="close-modal-btn">Создать мероприятие</button>
-            </div>
-        </div>
-    </div>
 </div>

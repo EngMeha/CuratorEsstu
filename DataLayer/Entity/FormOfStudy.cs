@@ -10,6 +10,6 @@ namespace DataLayer.Entity
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public List<Group> Groups { get; set; }
+        public List<GroupsOfTeacher> Groups { get; set; }
     }
 }

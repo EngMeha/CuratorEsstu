@@ -9,9 +9,12 @@ namespace BusinessLayer.Interface
 {
     public interface IGroup
     {
-        Task<Group> GetGroup(int id, bool include = true);
-        Task<List<Group>> GetAllGroups(bool include = true);
-        Task SaveGroup(Group group);
-        Task DeleteGroup(Group group);
+        Task<GroupsOfTeacher> GetGroup(int id, bool include = true);
+        Task<List<GroupsOfTeacher>> GetAllGroups(bool include = true);
+        Task SaveGroup(GroupsOfTeacher group);
+        Task DeleteGroup(GroupsOfTeacher group);
+        Task<GroupsOfTeacher> GetFirstGroup(User user);
+        Task<List<GroupsOfTeacher>> GetListGroupOfTeacher(User user, bool include);
+        Task<List<GroupsOfTeacher>> GetListGroupOfTeacherBySort(User user, string findGroup);
     }
 }
