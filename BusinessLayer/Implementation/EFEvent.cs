@@ -50,6 +50,12 @@ namespace BusinessLayer.Implementation
             return await _context.Event.ToListAsync();
         }
 
+        public async Task<List<string>> GetEventWithGroup(int id)
+        {
+            return await _context.EventOfStudent.Include(x => x.Event).Include(x => x.Student)
+                .Include(x => x.Student.Group).Where(x => x.Event.Id == id).Select(x=>x.Student.Group.Title).ToListAsync();
+        }
+
         public async Task<Event> GetEvent(int id, bool include = false)
         {
             if (include)

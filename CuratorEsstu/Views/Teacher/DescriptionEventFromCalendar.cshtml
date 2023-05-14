@@ -1,0 +1,35 @@
+﻿@using PresentationLayer.Models
+@model DescriptionEventFromCalendar
+@{
+    Layout = "";
+}
+<div class="modal-header">
+    <div class="close-modal" id="close" onclick="closeModal()">&#10006;</div>
+    <div class="title-header">@Model.Event.Title</div>
+</div>
+<div class="modal-body">
+<div class="row g-2 group-modal">
+    <span class="title-link">Групы</span>
+        @foreach (string item in Model.TitleGroups)
+        {
+            <div class="col-6 col-md-6 col-lg-3">
+                <div class="item-group-modal">
+                    <div class="title-group-modal">@item</div>
+                </div>
+            </div>
+        }
+    
+</div>
+<hr >
+<div class="row g-2 group-modal">
+    <span class="title-link">Дата и время</span>
+    <p>@Model.Event.DateTimeEvent</p>
+</div>
+<hr >
+<div class="description-event-modal">
+    <span class="title-link">Описание</span>
+    <div class="description">
+        <p>@Model.Event.Comment</p>
+    </div>
+</div>
+</div>

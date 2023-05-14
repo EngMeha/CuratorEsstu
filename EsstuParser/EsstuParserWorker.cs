@@ -14,16 +14,14 @@ namespace EsstuParser
     {
         string _login;
         string _password;
-        DataManager _dataManager;
 
         private HttpClientHandler hdl;
         private CookieContainer cookie;
 
-        public EsstuParserWorker(string login, string password, DataManager dataManager)
+        public EsstuParserWorker(string login, string password)
         {
             _login = login;
             _password = password;
-            _dataManager = dataManager;
 
             cookie = new CookieContainer();
             hdl = new HttpClientHandler
@@ -43,7 +41,7 @@ namespace EsstuParser
             return html;
         }
 
-        public async Task ParsStudentsByGroup(List<GroupsDirectory> groups, User user)
+        public async Task ParsStudentsByGroup(List<GroupsDirectory> groups, User user, DataManager _dataManager)
         {
             foreach (GroupsDirectory groupsDirectory in groups)
             {
@@ -82,6 +80,10 @@ namespace EsstuParser
                             {
                                 await _dataManager.Groups.SaveGroup(groupsOfTeacher);
                                 continue;
+                            }
+                            else
+                            {
+                                await _dataManager.Groups.SaveGroup(groupsOfTeacher);
                             }
                             var blockStudent = commonBlock[5].QuerySelector("div").QuerySelector("form").QuerySelector("table").QuerySelector("tbody").QuerySelectorAll("tr");
                             foreach (var student in blockStudent)
@@ -134,7 +136,7 @@ namespace EsstuParser
             }
         }
 
-        public async Task GetDirectoryAsync()
+        public async Task GetDirectoryAsync(DataManager _dataManager)
         {
 
             if (!await _dataManager.GropsDepartmen.CheckGroup())
@@ -212,6 +214,10 @@ namespace EsstuParser
 
         public async Task<bool> AutrorizeAsync()
         {
+            if (_login == null)
+            {
+                return false;
+            }
             using (var clnt = new HttpClient(hdl, false))
             {
                 clnt.DefaultRequestHeaders.Referrer = new Uri("https://esstu.ru/auth/");

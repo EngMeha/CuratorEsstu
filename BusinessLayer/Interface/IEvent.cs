@@ -18,5 +18,6 @@ namespace BusinessLayer.Interface
         Task<List<Event>> GetEventsByMounth(int mount);
         Task<List<Event>> GetAllEvents();
         Task<List<EventOfStudent>> GetAllEventsByDate(string dat1, string dat2, User user);
+        Task<List<string>> GetEventWithGroup(int id);
     }
 }

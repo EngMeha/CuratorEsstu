@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/css/eventCity.css">
     <link rel="stylesheet" href="~/css/group.css">
     <link rel="stylesheet" href="~/css/showAllGroup.css">
+    <link rel="stylesheet" href="~/css/dropdown.css">
     <script src="https://kit.fontawesome.com/e1461591b6.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,8 +58,12 @@
                 Мельникова Екатерина Сергеевна
             </div>
             <div class="col-lg-1 col-md-1 col-sm-2 col-2 col-xl-1 col-account">
-                <img src="~/img/user.png" alt="" class="account">
-                
+                <img src="~/img/user.png" alt="" class="account trigger">
+                <div class="dropdown-hide">
+                    <a asp-action="LogOut" asp-controller="Teacher" ><button type="button" class="btn-exit">
+                        <i class="fa fa-door-open" aria-hidden="true"></i>
+                    </button></a>
+                </div>
             </div>
         </header>
         @RenderBody()

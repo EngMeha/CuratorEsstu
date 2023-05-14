@@ -27,6 +27,10 @@ namespace PresentationLayer.Service
         {
             return DescriptionEventMapper.FromDbToModal(await _dataManager.Events.GetEvent(id));
         }
+        public async Task<DescriptionEventFromCalendar> ViewDescriptionEvent(int id, List<string> titleGroups)
+        {
+            return DescriptionEventMapper.FromDbToModal(titleGroups,  await _dataManager.Events.GetEvent(id));
+        }
 
         public async Task<CreateEventModel> ViewCreateEvent(int idEvent, User user, string findGroup)
         {

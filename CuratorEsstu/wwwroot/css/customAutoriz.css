@@ -139,3 +139,36 @@ form input:focus{
 .button-style:hover:after{
     width: 100%;
 }
+.attention {
+    color: red;
+    width: 50vh;
+    left: 80vh;
+    position: absolute;
+    font-size: 20px;
+}
+
+@media (max-width: 1400px) {
+    .title {
+        font-size: 25px;
+    }
+
+    form label {
+        font-size: 17px;
+    }
+
+    .login-container {
+        height: 80px;
+    }
+
+    .password-container {
+        height: 80px;
+    }
+
+    form input {
+        padding: 0;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+}

@@ -31,7 +31,6 @@ namespace CuratorEsstu.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _serviceManager = new ServiceManager(dataManager);
-            _esstuParserWorker = new EsstuParserWorker("emelnikova", "9KtTV37s", _dataManager);
             _appEnvironment = appEnvironment;
         }
 
@@ -40,16 +39,30 @@ namespace CuratorEsstu.Controllers
             public static User Teacher { get; set; }
         }
 
+        public async Task<IActionResult> AutorizeForEsstu()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AutorizeForEsstu(AuthorizationModel model)
+        {
+            _esstuParserWorker = new EsstuParserWorker(model.Login, model.Password);
+            if (await _esstuParserWorker.AutrorizeAsync())
+            {
+                await _esstuParserWorker.GetDirectoryAsync(_dataManager);
+                return RedirectToAction("ShowAllGroup", "Teacher");
+                /*
+                await _esstuParserWorker.ParsStudentsByGroup(await _dataManager.GropsDepartmen.GetAllGroupByTitle(new[] { "К102/1", "К79/1" }), GlobalTeacher.Teacher);*/
+            }
+            return View();
+        }
+
         public async Task<IActionResult> CreateUser()
         {
             GlobalTeacher.Teacher = await _userManager.GetUserAsync(User);
-
-            if (await _esstuParserWorker.AutrorizeAsync())
-            {
-                /*await _esstuParserWorker.GetDirectoryAsync();
-                await _esstuParserWorker.ParsStudentsByGroup(await _dataManager.GropsDepartmen.GetAllGroupByTitle(new[] { "К102/1", "К79/1" }), GlobalTeacher.Teacher);*/
-            }
-            return RedirectToAction("Index", "Teacher");
+            
+            return RedirectToAction("AutorizeForEsstu", "Teacher");
         }
 
         public async Task<IActionResult> Index(int mounth)
@@ -145,10 +158,13 @@ namespace CuratorEsstu.Controllers
         public async Task<IActionResult> AddGroup(string[] groups)
         {
             List<GroupsDirectory> groupsDirectories = await _dataManager.GropsDepartmen.GetAllGroupByTitle(groups);
-            if (await _esstuParserWorker.AutrorizeAsync())
+            if (_esstuParserWorker == null)
             {
-                await _esstuParserWorker.ParsStudentsByGroup(groupsDirectories, GlobalTeacher.Teacher);
+                return RedirectToAction("AutorizeForEsstu", "Teacher");
             }
+
+            await _esstuParserWorker.ParsStudentsByGroup(groupsDirectories, GlobalTeacher.Teacher, _dataManager);
+
             return RedirectToAction("GroupInfo", "Teacher");
 
         }
@@ -185,6 +201,11 @@ namespace CuratorEsstu.Controllers
         public async Task<IActionResult> DescriptionEvent(int id)
         {
             return PartialView("DescriptionEvent", await _serviceManager.EventService.ViewDescriptionEvent(id));
+        }
+        public async Task<IActionResult> DescriptionEventFromCalendar(int id)
+        {
+            List<string> titleGroup = await _dataManager.Events.GetEventWithGroup(id);
+            return PartialView("DescriptionEventFromCalendar", await _serviceManager.EventService.ViewDescriptionEvent(id, titleGroup.Distinct().ToList()));
         }
 
         [HttpGet]

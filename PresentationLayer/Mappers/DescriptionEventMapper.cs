@@ -19,5 +19,13 @@ namespace PresentationLayer.Mappers
                 Id = @event.Id
             };
         }
+        public static DescriptionEventFromCalendar FromDbToModal(List<string> titleGroups, Event @event)
+        {
+            return new DescriptionEventFromCalendar()
+            {
+                Event = @event,
+                TitleGroups = titleGroups
+            };
+        }
     }
 }

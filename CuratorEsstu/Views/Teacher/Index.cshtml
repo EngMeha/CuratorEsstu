@@ -28,9 +28,11 @@
             {
                 if (Model.Events.Any(x=>x.DateTimeEvent.Day == i))
                 {
-                    <div class="day" id="day_@i">
+                    Event eventDay = Model.Events.FirstOrDefault(x => x.DateTimeEvent.Day == i);
+                    
+                    <div class="day" id="day_@i" onclick="openModal({url: '/Teacher/DescriptionEventFromCalendar', data: '@eventDay.Id'})">
                         <div class="title-day">@i</div>
-                        <section class="task task--info">@Model.Events.FirstOrDefault(x=>x.DateTimeEvent.Day == i).Title</section>
+                        <section class="task task--info">@eventDay.Title</section>
                     </div>
                 }
                 else
