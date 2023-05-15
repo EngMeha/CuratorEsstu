@@ -16,5 +16,6 @@ namespace BusinessLayer.Interface
         Task<GroupsOfTeacher> GetFirstGroup(User user);
         Task<List<GroupsOfTeacher>> GetListGroupOfTeacher(User user, bool include);
         Task<List<GroupsOfTeacher>> GetListGroupOfTeacherBySort(User user, string findGroup);
+        Task<bool> CheckGroupOnCurator();
     }
 }

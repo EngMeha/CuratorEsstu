@@ -14,7 +14,7 @@ namespace DataLayer
             if (!await _context.BasisOfLearning.AnyAsync())
             {
                 _context.BasisOfLearning.Add(new Entity.BasisOfLearning() { Title = "Бюджет" });
-                _context.BasisOfLearning.Add(new Entity.BasisOfLearning() { Title = "Договор" });
+                _context.BasisOfLearning.Add(new Entity.BasisOfLearning() { Title = "Контракт" });
                 _context.BasisOfLearning.Add(new Entity.BasisOfLearning() { Title = "Целевое" });
             }
             

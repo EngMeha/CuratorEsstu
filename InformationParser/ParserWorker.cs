@@ -31,7 +31,7 @@ namespace InformationParser
         public async Task Worker()
         {
             List<DataLayer.Entity.Event> events = await _dataManager.Events.GetAllEvents();
-            if (DateTime.Now.Day - events.First().CreateDate.Day > 30)
+            if (events.Count() == 0 || DateTime.Now.Day - events.First().CreateDate.Day > 30)
             {
                 List<IParser> listParser = new List<IParser>()
                 {

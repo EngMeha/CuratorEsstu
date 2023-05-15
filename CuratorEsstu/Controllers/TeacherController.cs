@@ -111,7 +111,7 @@ namespace CuratorEsstu.Controllers
         public async Task<IActionResult> ReportSocialPassport(string group, string dat1, string dat2)
         {
             
-            GroupsDirectory groupsDirectory = await _dataManager.GropsDepartmen.GetGroupByTitle("К79/1", true);
+            GroupsDirectory groupsDirectory = await _dataManager.GropsDepartmen.GetGroupByTitle(group, true);
             string templateFileName = $@"{_appEnvironment.WebRootPath}\TemplateFiles\TemplatePassport.docx".Replace(@"\\", @"\");
 
             Word.Application wordApplication = new Word.Application();
@@ -153,6 +153,7 @@ namespace CuratorEsstu.Controllers
 
         public async Task<IActionResult> ShowAllGroup()
         {
+            
             return View(await _serviceManager.GroupOfTeacherService.ViewAllGroup(GlobalTeacher.Teacher));
         }
         public async Task<IActionResult> AddGroup(string[] groups)
@@ -180,6 +181,11 @@ namespace CuratorEsstu.Controllers
         [HttpGet]
         public async Task<IActionResult> GroupInfo()
         {
+            
+            if (!await _dataManager.Groups.CheckGroupOnCurator())
+            {
+                return RedirectToAction("ShowAllGroup", "Teacher");
+            }
             ViewData["listGroup"] = await _dataManager.Groups.GetListGroupOfTeacher(GlobalTeacher.Teacher, false);
             return View("GroupInfo", await _serviceManager.GroupOfTeacherService.ViewInfoGroup(GlobalTeacher.Teacher));
         }
@@ -259,7 +265,7 @@ namespace CuratorEsstu.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Autorization");
+            return RedirectToAction("Login", "Authorization");
         }
     }
 }

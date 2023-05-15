@@ -35,7 +35,12 @@ function sendArrayForGroup(parametrs) {
 
         type: 'POST',
         url: parametrs.url,
-        data: { 'groups': array},
+        data: { 'group': title.id },
         
     });
 };
+
+var title;
+function send_title(clicked_id) {
+    title = document.getElementById(clicked_id);
+}

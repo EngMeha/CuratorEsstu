@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BusinessLayer.Implementation
@@ -56,10 +57,26 @@ namespace BusinessLayer.Implementation
             }
             
         }
+
+        public async Task<bool> CheckGroupOnCurator()
+        {
+            
+            return _context.Group.Count() == 0?false : true;
+        }
+
+
         public async Task<GroupsOfTeacher> GetFirstGroup(User user)
         {
-            return await _context.Group.Include(x => x.CraduationDepartament)
-                .Include(x => x.GroupDirectory).Include(x => x.GroupDirectory.Students).Include(x => x.GroupDirectory.Speciality).FirstAsync(x=>x.User.Id == user.Id);
+            try
+            {
+                return await _context.Group.Include(x => x.CraduationDepartament)
+                .Include(x => x.GroupDirectory).Include(x => x.GroupDirectory.Students).Include(x => x.GroupDirectory.Speciality).FirstAsync(x => x.User.Id == user.Id);
+            }
+            catch
+            {
+                return await _context.Group.FirstAsync();
+            }
+            
         }
 
         public async Task<List<GroupsOfTeacher>> GetAllGroups(bool include = true)

@@ -142,7 +142,7 @@ form input:focus{
 .attention {
     color: red;
     width: 50vh;
-    left: 80vh;
+    left: 72vh;
     position: absolute;
     font-size: 20px;
 }

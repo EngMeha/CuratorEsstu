@@ -30,7 +30,6 @@ namespace EsstuParser
                 AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip | DecompressionMethods.None,
                 CookieContainer = cookie,
 
-                Proxy = new WebProxy("127.0.0.1:8888"),
             };
         }
 

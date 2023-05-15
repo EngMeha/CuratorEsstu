@@ -62,7 +62,7 @@ namespace BusinessLayer.Implementation
         {
             if (include)
             {
-                return await _context.GroupDirectory.Include(x=>x.Students).FirstAsync(x => x.Title.Equals(title));
+                return await _context.GroupDirectory.Include(x=>x.Students).Include(x=>x.Speciality).FirstAsync(x => x.Title.Equals(title));
             }
             else
             {
